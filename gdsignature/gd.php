@@ -21,13 +21,14 @@ $stats = $cache->read("stats");
 $query = mysqli_query("SELECT * FROM mybb_users");
 
 
+
 //Inicio de la Creacion de Imagen
 Header ("Content-type: image/png");
 
 //Definimos el Template a Usar, el Default
 $imagen = imagecreatefrompng('template_01.png');
 
-// Dimensiones de la imagen: 450px x 150px
+// Dimensiones de la imagen: 400px x 134px
 $w_im = imagesx($imagen);
 $h_im = imagesy($imagen);
 
@@ -48,7 +49,7 @@ $clr_azul = imagecolorallocate($imagen,41,93,224);
 	$fuente = $ttf_black;
 //	$w_txt = imagettfbbox($tamano,0,$fuente,$texto);
 	$x = 10;
-	$y = 23;
+	$y = 25;
 	imagefilledrectangle($imagen,0,0,450,30,imagecolorallocatealpha($imagen, 1, 10, 255, 75)); //Color se Rellena con alpha
   
 	$color = $clr_blanco;
@@ -61,18 +62,106 @@ $clr_azul = imagecolorallocate($imagen,41,93,224);
 		}
 	imagettftext($imagen,$tamano,0,$x,$y,$color,$fuente,$texto);
 		
-// Codigo para leer Stats de MyBB
 
-imagefttext($imagen, 14, 0, 10, 50, $clr_amarillo, $ttf_black , "Forum: ". $mybb->settings['homename']);
-imagefttext($imagen, 14, 0, 10, 70, $clr_azul, $ttf_black , "Username: ". $mybb->users['username']);
-imagefttext($imagen, 14, 0, 10, 90, $clr_rojo, $ttf_black, "Members: ". my_number_format($stats['numusers']));
-imagefttext($imagen, 14, 0, 10, 110, $clr_blanco, $ttf_black, "Posts: ". my_number_format($stats['numposts']));
-imagefttext($imagen, 14, 0, 10, 130, $clr_blanco, $ttf_black, "Threads: ". my_number_format($stats['numthreads']));
-imagefttext($imagen, 14, 0, 310, 90, $clr_azul, $ttf_black , "Avatar: ". $mybb->users['avatar']);
+// Posición Texto de Presentacion de la Firma GD Dinamica
+	$texto2 = "Forum: ". $mybb->settings['homename'];
+	$tamano = 14;
+	$fuente = $ttf_black;
+//	$w_txt = imagettfbbox($tamano,0,$fuente,$texto);
+	$x = 10;
+	$y = 45;
+	//imagefilledrectangle($imagen,0,0,450,30,imagecolorallocatealpha($imagen, 1, 10, 255, 75)); //Color se Rellena con alpha
+  
+	$color = $clr_amarillo;
+// outline del Codigo
+	$ol = array(-2,-1,1,2);
+	foreach($ol as $val_x) {
+		foreach($ol as $val_y) {
+			imagettftext( $imagen, $tamano, 0, $x+$val_x, $y+$val_y, $clr_negro, $fuente, $texto2 );
+			}
+		}
+	imagettftext($imagen,$tamano,0,$x,$y,$color,$fuente,$texto2);
+// Fin  Posicion Texto MyBB
+
+
+// Posición Consulta Texto de Username foro MyBB de la Firma GD Dinamica
+	$texto3 = "Username: ". $mybb->users['username'];
+	$tamano = 14;
+	$fuente = $ttf_black;
+	$x = 10;
+	$y = 65;  
+	$color = $clr_amarillo;
+// outline del Codigo
+	$ol = array(-2,-1,1,2);
+	foreach($ol as $val_x) {
+		foreach($ol as $val_y) {
+			imagettftext( $imagen, $tamano, 0, $x+$val_x, $y+$val_y, $clr_negro, $fuente, $texto3 );
+			}
+		}
+	imagettftext($imagen,$tamano,0,$x,$y,$color,$fuente,$texto3);
+// Fin  Posicion Consulta Username Texto MyBB
+
+
+// Posición Consulta Texto de Members foro MyBB de la Firma GD Dinamica
+	$texto4 = "Members: ". my_number_format($stats['numusers']);
+	$tamano = 14;
+	$fuente = $ttf_black;
+	$x = 10;
+	$y = 85;  
+	$color = $clr_azul;
+// outline del Codigo
+	$ol = array(-2,-1,1,2);
+	foreach($ol as $val_x) {
+		foreach($ol as $val_y) {
+			imagettftext( $imagen, $tamano, 0, $x+$val_x, $y+$val_y, $clr_negro, $fuente, $texto4 );
+			}
+		}
+	imagettftext($imagen,$tamano,0,$x,$y,$color,$fuente,$texto4);
+// Fin  Posicion Consulta Members Texto MyBB
+
+
+// Posición Consulta Texto de Post foro MyBB de la Firma GD Dinamica
+	$texto5 = "Posts: ". my_number_format($stats['numposts']);
+	$tamano = 14;
+	$fuente = $ttf_black;
+	$x = 10;
+	$y = 105;  
+	$color = $clr_azul;
+// outline del Codigo
+	$ol = array(-2,-1,1,2);
+	foreach($ol as $val_x) {
+		foreach($ol as $val_y) {
+			imagettftext( $imagen, $tamano, 0, $x+$val_x, $y+$val_y, $clr_negro, $fuente, $texto5 );
+			}
+		}
+	imagettftext($imagen,$tamano,0,$x,$y,$color,$fuente,$texto5);
+// Fin  Posicion Consulta Post Texto MyBB
+
+// Posición Consulta Texto de Threads foro MyBB de la Firma GD Dinamica
+	$texto6 = "Threads: ". my_number_format($stats['numthreads']);
+	$tamano = 14;
+	$fuente = $ttf_black;
+	$x = 10;
+	$y = 125;  
+	$color = $clr_rojo;
+// outline del Codigo
+	$ol = array(-2,-1,1,2);
+	foreach($ol as $val_x) {
+		foreach($ol as $val_y) {
+			imagettftext( $imagen, $tamano, 0, $x+$val_x, $y+$val_y, $clr_negro, $fuente, $texto6 );
+			}
+		}
+	imagettftext($imagen,$tamano,0,$x,$y,$color,$fuente,$texto6);
+// Fin  Posicion Consulta Threads Texto MyBB
+
+
+
+imagefttext($imagen, 14, 0, 290, 90, $clr_azul, $ttf_black , "Avatar: ". $mybb->users['avatar']);
+
 //Relleno de amarillo para el avatar	
 imagefilledrectangle($imagen, 310, 90, 4000, 4000, imagecolorallocatealpha($imagen, 1, 10, 255, 75));
 
-// Grosor para la imagen, se ve mejor
+// Grosor para la imagen
 	$grosor = 7;
 
 	$sombra = array(0,0,	$grosor-1,$grosor-1,	$grosor-1,$h_im-$grosor,	$w_im-$grosor,$h_im-$grosor,	$w_im,$h_im,	0,$h_im);
